@@ -1,6 +1,7 @@
 package drone
 
 import (
+	"context"
 	"fmt"
 	"github.com/drone/drone-go/drone"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -36,12 +37,12 @@ func Provider() *schema.Provider {
 func providerConfigureFunc(data *schema.ResourceData) (interface{}, error) {
 	config := new(oauth2.Config)
 
-	auther := config.Client(
-		oauth2.NoContext,
+	auth := config.Client(
+		context.Background(),
 		&oauth2.Token{AccessToken: data.Get("token").(string)},
 	)
 
-	client := drone.NewClient(data.Get("server").(string), auther)
+	client := drone.NewClient(data.Get("server").(string), auth)
 
 	if _, err := client.Self(); err != nil {
 		return nil, fmt.Errorf("drone client failed: %s", err)

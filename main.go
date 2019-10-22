@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/artisanofcode/terraform-provider-drone/drone"
+	"github.com/JohnRoesler/terraform-provider-drone/drone"
 	"github.com/hashicorp/terraform/plugin"
 	"github.com/hashicorp/terraform/terraform"
 )
