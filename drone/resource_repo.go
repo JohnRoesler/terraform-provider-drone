@@ -94,7 +94,7 @@ func resourceRepoCreate(data *schema.ResourceData, meta interface{}) error {
 func resourceRepoRead(data *schema.ResourceData, meta interface{}) error {
 	client := meta.(drone.Client)
 
-	owner, repo, err := parseRepo(data.Id())
+	owner, repo, err := parseRepo(data.Get("repository").(string))
 
 	if err != nil {
 		return err
@@ -122,7 +122,7 @@ func resourceRepoUpdate(data *schema.ResourceData, meta interface{}) error {
 func resourceRepoDelete(data *schema.ResourceData, meta interface{}) error {
 	client := meta.(drone.Client)
 
-	owner, repo, err := parseRepo(data.Id())
+	owner, repo, err := parseRepo(data.Get("repository").(string))
 
 	if err != nil {
 		return err
@@ -134,7 +134,7 @@ func resourceRepoDelete(data *schema.ResourceData, meta interface{}) error {
 func resourceRepoExists(data *schema.ResourceData, meta interface{}) (bool, error) {
 	client := meta.(drone.Client)
 
-	owner, repo, err := parseRepo(data.Id())
+	owner, repo, err := parseRepo(data.Get("repository").(string))
 
 	if err != nil {
 		return false, err
